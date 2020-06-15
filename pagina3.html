@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
     <head>
         <title>Examen juni 2020</title>
@@ -12,18 +12,22 @@
                 border-color: white;
                 color: white;
             }
+
             .jumbotron {
                 margin-bottom: 0px;
             }
-            .episode {
+
+            .body {
                 text-align: center;
             }
+
             .card {
                 display: inline-block;
                 margin-top: 12px;
                 margin-bottom: 12px;
                 width: 18rem;
             }
+
             .footer {
                 color: white;
             }
@@ -38,19 +42,19 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="./index.html">Pagina 1 <span class="sr-only">(current)</span></a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./index.html">Pagina 1</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./pagina2.html">Pagina 2</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./pagina3.html">Pagina 3</a>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="./pagina3.html">Pagina 3 <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" id="episodeName" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="searchEpisode">Search</button>
+                        <input class="form-control mr-sm-2" id="input" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </div>
             </nav>
@@ -59,8 +63,8 @@
         <div class="main">
             <div class="jumbotron jumbotron-fluid text-center">
                 <div class="container">
-                    <h1 class="display-4">Pagina 1</h1>
-                    <p class="lead">Afleveringen op naam of ID op te zoeken.</p>
+                    <h1 class="display-4">Pagina 3</h1>
+                    <p class="lead">Personages op te zoeken op basis van een locatie.</p>
                 </div>
             </div>
         </div>
@@ -77,8 +81,6 @@
                 </div>
             </div>
         </div> -->
-        <!-- Episode -->
-        <div class="episode" id="episode"></div>
         <!-- Footer -->
         <div class="footer">
             <div class="footer-copyright text-center py-3 bg-primary">&copy; 2020 - Provided by Yasin</div>
@@ -88,49 +90,10 @@
         <!-- Bootstrap JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
         <script>
-            $(document).ready(function () {
-                $("#searchEpisode").click(function () {
-                    $.get(getEpisodeUrl())
-                        .done(function (oData) {
-                            $('#episode').html(addEpisode(oData));
-                            console.log("Gelukt!");
-                        })
-                        .fail(function (oError) {
-                            console.log(oError);
-                        });
-                });
-            });
-            function getEpisodeUrl() {
-                var sBaseUrl = "https://api.got.show/api/map/episodes/";
-                const sEpisode = $("#episodeName").val().replace(/\s/g, "%20");
-                var sFullUrl = "";
-                if (sEpisode !== undefined) {
-                    sFullUrl = sBaseUrl + sEpisode;
-                }
-                return sFullUrl;
-            }
-            function addEpisode(oEpisode) {
-                var sHtml = `
-                <div class="card">
-                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" alt="Card image cap" />
-                    <div class="card-body">
-                        <h4 class="card-title"><a>${oEpisode.data.name}</a></h4>
-                            <p class="card-text">
-                                ${oEpisode.data.director}<br>
-                                ${oEpisode.data.airDate}<br>
-                                ${oEpisode.data.season} - ${oEpisode.data.nr}<br>
-                                ${oEpisode.data.predecessor}<br>
-                                ${oEpisode.data.successor}<br>
-                                <strong>Personages:</strong><br>`
-                for (let character = 0; character < oEpisode.data.characters.length; character++) {
-                    sHtml += `${oEpisode.data.characters[character]}, `;
-                }
-                sHtml += `
-                            </p>
-                            <a href="./pagina2.html" class="btn btn-primary">Info over personage</a>
-                    </div>
-                </div>`;
-                return sHtml;
+            function getEpisode() {
+                var sBaseUrl = "https://api.got.show/api/show/episodes";
+                var sAflevering = $("#input").val();
+                //if ()
             }
         </script>
     </body>
